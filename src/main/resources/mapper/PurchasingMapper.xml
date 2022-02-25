@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatissimple3.mapper.PurchasingMapper">
+    <insert id="insertPurchasing" parameterType="com.example.mybatissimple3.model.Purchasing">
+        INSERT INTO purchasing VALUES (#{purpose},#{provider},#{total},#{id},#{boughtDate})
+    </insert>
+
+    <select id="selectAllPurchasing" resultMap="result">
+        SELECT * from purchasing
+        <where>
+            <foreach item="products"  collection="products" open="ID in (" separator="," close=")" nullable="true">
+                #{products.name},#{products.price},#{product.amount},#{product.vat},#{product.totalPrice},#{products.id},#{products.purchasingId}
+            </foreach>
+        </where>
+    </select>
+
+    <resultMap id="result" type="com.example.mybatissimple3.model.Purchasing">
+        <result property="purpose" column="purpose"/>
+        <result property="provider" column="provider"/>
+        <result property="total" column="total"/>
+        <result property="id" column="id"/>
+        <result property="boughtDate" column="boughtDate"/>
+    </resultMap>
+</mapper>

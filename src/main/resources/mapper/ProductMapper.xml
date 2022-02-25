@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatissimple3.mapper.ProductMapper">
+    <select id="countAll" resultType="Integer">
+        SELECT COUNT(*) FROM products
+    </select>
+    
+    <insert id="insertProduct" parameterType="com.example.mybatissimple3.model.Products">
+        INSERT INTO products values (#{name},#{price},#{amount},#{vat},#{totalPrice})
+    </insert>
+
+    <update id="updateProductById" >
+        UPDATE products SET name=#{Obj.name},price=#{Obj.price},amount=#{Obj.amount},vat=#{Obj.vat},"totalPrice"=#{Obj.totalPrice} where id=#{id}
+    </update>
+    
+    <delete id="deleteProductById" parameterType="Integer">
+        DELETE FROM products where id=#{id}
+    </delete>
+
+    <select id="selectAllProduct" resultMap="result">
+        SELECT * from products
+    </select>
+
+    <select id="selectProductById" parameterType="Integer" resultType="com.example.mybatissimple3.model.Products">
+        SELECT * from products WHERE ID=#{id}
+    </select>
+    
+    <resultMap id="result" type="com.example.mybatissimple3.model.Products">
+        <result property="name" column="name"/>
+        <result property="price" column="price"/>
+        <result property="amount" column="amount"/>
+        <result property="vat" column="vat"/>
+        <result property="totalPrice" column="totalPrice"/>
+    </resultMap>
+</mapper>
